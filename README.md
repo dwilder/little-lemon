@@ -6,7 +6,11 @@ The Little Lemon restaurant app is a portfolio project based on the Coursera Cap
 
 ## Running the Project
 
-git clone the project and run `npx expo start`.
+`git clone` the project and navigate to the project directory.
+
+Install dependencies with `npm install`.
+
+Run the application with `npx expo start`.
 
 ## Wireframe
 
