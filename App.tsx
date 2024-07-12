@@ -5,14 +5,14 @@ import OnboardingScreen from './screens/Onboarding';
 import ProfileScreen from './screens/Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import SplashScreen from './screens/Splash';
 
 import AuthContext from './contexts/AuthContext';
 import LogoTitle from './components/LogoTitle';
 import Avatar from './components/Avatar';
 import HomeScreen from './screens/Home';
-
-// import { createTable } from './utils/database';
+import { ThemeColors } from './constants/Colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +32,7 @@ export default function App() {
           return {
             ...prevState,
             isOnboardingCompleted: action.isOnboardingCompleted,
-            avatarInitials: (action.firstName?.[0] || '')
+            avatarInitials: action.avatarInitials
           }
         case 'UPDATE_AVATAR':
           return {
@@ -93,7 +93,8 @@ export default function App() {
         dispatch({
           type: 'SET_ONBOARDING_COMPLETED',
           isOnboardingCompleted,
-          avatarInitials: firstName?.[0] || '' });
+          avatarInitials: firstName?.[0] || ''
+        });
       },
       updateAvatar: async ({ firstName, lastName, avatarUri }: { firstName: string, lastName: string, avatarUri: string }) => {
         dispatch({
@@ -101,12 +102,12 @@ export default function App() {
           firstName,
           lastName,
           avatarUri
-        })
+        });
       },
       logout: async () => {
         dispatch({
           type: 'LOGOUT'
-        })
+        });
       },
       ...state
     }),
@@ -128,9 +129,7 @@ export default function App() {
               headerRight: () => <Avatar size='small' route={route} navigation={navigation} />
             })}>
               <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="Profile" component={ProfileScreen} options={{
-                headerBackVisible: true
-              }} />
+              <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Group>
           ) : (
             <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{headerShown: false}} />
